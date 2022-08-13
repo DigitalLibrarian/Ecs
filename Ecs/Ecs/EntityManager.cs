@@ -15,32 +15,41 @@ namespace Ecs
             Entities = new Dictionary<int, IEntity>();
         }
 
-        public IEntity CreateEntity()
+        public IEntity Create()
         {
             int id = Entities.Keys.OrderBy(x => x).LastOrDefault() + 1;
-            return CreateEntity(id);
+            return Create(id);
         }
-        public IEntity CreateEntity(int entityId)
+        public IEntity Create(int entityId)
         {
             var entity = new Entity(entityId);
             Entities.Add(entityId, entity);
             return entity;
         }
 
-        public IEntity GetEntity(int entityId)
+        public IEntity Get(int entityId)
         {
             if (!Entities.ContainsKey(entityId)) return null;
 
             return Entities[entityId];
         }
 
-        public IEnumerable<IEntity> GetEntities(IEnumerable<int> componentIds)
+        public IEnumerable<IEntity> GetEntities()
         {
+            return Entities.Values;
+        }
+
+        public IEnumerable<IEntity> ByComponents(params int[] componentIds)
+        {
+            return ByComponents(componentIds.AsEnumerable());
+        }
+        public IEnumerable<IEntity> ByComponents(IEnumerable<int> componentIds)
+        { 
             return Entities.Values.Where(
                         entity => {
                             foreach(var reqId in componentIds)
                             {
-                                if (!entity.HasComponent(reqId))
+                                if (!entity.Has(reqId))
                                 {
                                     return false;
                                 }
@@ -50,9 +59,9 @@ namespace Ecs
         }
 
 
-        public IEntity DeleteEntity(int entityId)
+        public IEntity Delete(int entityId)
         {
-            var entity = GetEntity(entityId);
+            var entity = Get(entityId);
             if (entity != null)
                 Entities.Remove(entityId);
             return entity;

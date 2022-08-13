@@ -35,12 +35,12 @@ namespace Tests.Ecs
             var compMock = new Mock<ISomeComponent>();
             compMock.Setup(x => x.Id).Returns(1);
 
-            var result = Entity.GetComponent<ISomeComponent>(1);
+            var result = Entity.Get<ISomeComponent>(1);
             Assert.IsNull(result);
 
-            Entity.AddComponent(compMock.Object);
+            Entity.Add(compMock.Object);
 
-            result = Entity.GetComponent<ISomeComponent>(1);
+            result = Entity.Get<ISomeComponent>(1);
             Assert.AreSame(compMock.Object, result);
         }
 
@@ -50,9 +50,9 @@ namespace Tests.Ecs
             var compMock = new Mock<IComponent>();
             compMock.Setup(x => x.Id).Returns(1);
 
-            Assert.IsFalse(Entity.HasComponent(compMock.Object.Id));
-            Entity.AddComponent(compMock.Object);
-            Assert.IsTrue(Entity.HasComponent(compMock.Object.Id));
+            Assert.IsFalse(Entity.Has(compMock.Object.Id));
+            Entity.Add(compMock.Object);
+            Assert.IsTrue(Entity.Has(compMock.Object.Id));
         }
     }
 }

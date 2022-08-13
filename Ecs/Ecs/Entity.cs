@@ -17,17 +17,17 @@ namespace Ecs
             Components = new Dictionary<int, IComponent>();
         }
 
-        public bool HasComponent(int componentId)
+        public bool Has(int componentId)
         {
             return Components.ContainsKey(componentId);
         }
 
-        public void AddComponent(IComponent comp)
+        public void Add(IComponent comp)
         {
             Components.Add(comp.Id, comp);
         }
         
-        public TComponent GetComponent<TComponent>(int componentId)
+        public TComponent Get<TComponent>(int componentId)
         {
             var comp = Components.Values.FirstOrDefault(c => c.Id == componentId);
             return (TComponent)comp;

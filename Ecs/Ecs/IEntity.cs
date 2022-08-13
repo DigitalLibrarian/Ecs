@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ecs
+﻿namespace Ecs
 {
     public interface IEntity
     {
         int Id { get; }
-        bool HasComponent(int componentId);
-        void AddComponent(IComponent comp);
-        TComponent GetComponent<TComponent>(int componentId);
+        bool Has(int componentId);
+        void Add(IComponent comp);
+        TComponent Get<TComponent>(int componentId);
     }
 }

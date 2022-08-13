@@ -8,11 +8,14 @@ namespace Ecs
 {
     public interface IEntityManager
     {
-        IEntity CreateEntity();
-        IEntity CreateEntity(int entityId);
+        IEntity Create();
+        IEntity Create(int entityId);
 
-        IEntity GetEntity(int entityId);
-        IEntity DeleteEntity(int entityId);
-        IEnumerable<IEntity> GetEntities(IEnumerable<int> componentIds);
+        IEntity Get(int entityId);
+        IEntity Delete(int entityId);
+        IEnumerable<IEntity> GetEntities();
+
+        IEnumerable<IEntity> ByComponents(params int[] componentId);
+        IEnumerable<IEntity> ByComponents(IEnumerable<int> componentId);
     }
 }
